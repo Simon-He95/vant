@@ -36,16 +36,14 @@
   <div id="app"></div>
   <script type="module" src="/desktop/main.js"></script>
   <script>
-    let text
     document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'c')
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
+        const selection = document.getSelection()
+        if (!selection || !selection.toString())
+          return
+        text = selection.toString()
         window.parent.postMessage({ eventType: 'copy', text }, '*')
-    })
-    document.addEventListener('selectionchange', () => {
-      const selection = document.getSelection()
-      if (!selection || !selection.toString())
-        return
-      text = selection.toString()
+      }
     })
   </script>
 </body>
